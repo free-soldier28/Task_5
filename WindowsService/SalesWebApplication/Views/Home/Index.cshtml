@@ -1,34 +1,76 @@
-﻿@using SalesWebApplication.Models
-@model IEnumerable <SalesViewModel>
+﻿@using Newtonsoft.Json
+@using Newtonsoft.Json.Converters
+@using SalesWebApplication.Models
+@*@model IEnumerable <SalesViewModel>*@
 
 @{
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>Дата</th>
-            <th>Менеджер</th>
-            <th>Клиент</th>
-            <th>Товар</th>
-            <th>Сумvа</th>
-        </tr>
-        </thead>
-        @foreach (var item in Model)
-        {
+<div id="SalesWrapper">
+    <div class="jumbotron">
+
+        @*<div class="classic-buttons">
+            <a href="#" data-bind="click: showAddSalesForm, css:{'light-button': IsActive(), 'dark-button': !IsActive()}">Добавить запись в БД</a>
+        </div>*@
+        @*<div class="hidden-form" data-bind="with: AddSalesModel">
+            <div data-bind="visible: IsActive()">
+                <h2>Добавление записи</h2>
+                <div class="form form-validate ">
+                    <div class="form-group">
+                        <input type="text" data-bind="value: Title" class="form-control" placeholder="Менеджер" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" data-bind="value: Title" class="form-control" placeholder="Клиент" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" data-bind="value: Title" class="form-control" placeholder="Товар" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" data-bind="value: Title" class="form-control" placeholder="Сумма" />
+                    </div>
+                    <div class="classic-buttons">
+                        <button class="btn btn-primary" data-bind="click: ok">Добавить</button>
+                        <button class="btn btn-close" data-bind="click: cancel">Отмена</button>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+        
+
+        <table class="table table-hover">
+            <thead>
             <tr>
-                <td>@item.Date</td>
-                <td>@item.ManagerName</td>
-                <td>@item.CustomerName</td>
-                <td>@item.ProductName</td>
-                <td>@item.Amount</td>
+                <th>Дата</th>
+                <th>Менеджер</th>
+                <th>Клиент</th>
+                <th>Товар</th>
+                <th>Сумма</th>
             </tr>
-        }
-    </table>
+            </thead>
+            <tbody data-bind="foreach: Sales">
+                <tr>
+                    @*<td data-bind="date: Date, dateFormat: 'DD-MM-YYYY hh:mm:ss'"></td>*@
+                    <td data-bind="text: Date"></td>
+                    <td data-bind="text: ManagerName"></td>
+                    <td data-bind="text: CustomerName"></td>
+                    <td data-bind="text: ProductName"></td>
+                    <td data-bind="text: Amount"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+    </div>
+
 </div>
 
-<div class="row">
-
-</div>
+    @Scripts.Render("~/bundles/knockout")
+    <script>
+        $(function ()
+        {
+            var myViewModel = new SalesViewModel();
+            ko.applyBindings(myViewModel, $("#SalesWrapper")[0]);
+        });
+    </script>

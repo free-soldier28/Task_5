@@ -18,8 +18,14 @@ namespace SalesWebApplication.Controllers
 
         public ActionResult Index()
         {
-           var allSales = Mapper.Map<IEnumerable<SalesViewModel>>(_salesService.GetSales());
-            return View(allSales);
+           return View();
+        }
+
+        [JsonNetFilter]
+        public JsonResult GetSales()
+        {
+            var allSales = Mapper.Map<IEnumerable<SalesViewModel>>(_salesService.GetSales());
+            return Json(allSales, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult About()

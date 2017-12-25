@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using WindowsService.BLL.DTO;
 using WindowsService.BLL.Interfaces;
 using WindowsService.DAL.Interfaces;
 using Entities;
@@ -13,6 +15,27 @@ namespace WindowsService.BLL
         public SalesService(IUnitOfWork uow)
         {          
             Database = uow;
+        }
+
+        public IEnumerable<SalesDTO> GetSales()
+        {
+            IEnumerable<Sales> allSales = Database.Saleses.GetAll();
+            List<SalesDTO> allSalesDTO = new List<SalesDTO>();
+
+            foreach (var sales in allSales)
+            {
+                SalesDTO salesDTO = new SalesDTO();
+                salesDTO.Id = sales.Id;
+                salesDTO.Date = sales.Date;
+                salesDTO.Amount = sales.Amount;
+                salesDTO.ManagerName = sales.Manager.SecondName;
+                salesDTO.CustomerName = sales.Customer.FullName;
+                salesDTO.ProductName = sales.Product.Name;
+                
+                allSalesDTO.Add(salesDTO);
+            }
+            
+            return allSalesDTO;
         }
 
         public void AddSales(string managerName, string[] substrings)

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entiti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsServiceConsole", "WindowsServiceConsole\WindowsServiceConsole.csproj", "{1B081C77-D05A-4963-9CDD-E6831372B97B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesWebApplication", "SalesWebApplication\SalesWebApplication.csproj", "{FA315BB9-5772-457A-9C92-4866030A4372}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{1B081C77-D05A-4963-9CDD-E6831372B97B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B081C77-D05A-4963-9CDD-E6831372B97B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B081C77-D05A-4963-9CDD-E6831372B97B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA315BB9-5772-457A-9C92-4866030A4372}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA315BB9-5772-457A-9C92-4866030A4372}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA315BB9-5772-457A-9C92-4866030A4372}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA315BB9-5772-457A-9C92-4866030A4372}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

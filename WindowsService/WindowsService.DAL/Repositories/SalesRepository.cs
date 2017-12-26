@@ -45,6 +45,7 @@ namespace WindowsService.DAL.Repositories
         {
             Sales item = db.Saleses.Find(id);
             db.Saleses.Remove(item);
+            db.SaveChanges();
         }
     }
 }

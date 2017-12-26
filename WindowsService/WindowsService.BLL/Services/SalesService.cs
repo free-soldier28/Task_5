@@ -17,6 +17,7 @@ namespace WindowsService.BLL
             Database = uow;
         }
 
+
         public IEnumerable<SalesDTO> GetSales()
         {
             IEnumerable<Sales> allSales = Database.Saleses.GetAll();
@@ -37,6 +38,29 @@ namespace WindowsService.BLL
             
             return allSalesDTO;
         }
+
+
+        public IEnumerable<ProductSalesDTO> GetProductSales()
+        {
+            IEnumerable<Sales> allSales = Database.Saleses.GetAll();
+            List<ProductSalesDTO> allProductSalesDTO = new List<ProductSalesDTO>();
+
+
+            foreach (var sales in allSales)
+            {
+                ProductSalesDTO productSalesDTO = new ProductSalesDTO();
+                productSalesDTO.ProductName = sales.Product.Name;
+                productSalesDTO.Amount = sales.Amount;
+            }
+            return allProductSalesDTO;
+        }
+
+
+        public void DeleteById(int id)
+        {
+            Database.Saleses.Delete(id);
+        }
+
 
         public void AddSales(string managerName, string[] substrings)
         {

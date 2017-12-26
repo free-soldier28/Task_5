@@ -55,10 +55,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\ProductSalesDTO.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Interfaces\IParser.cs" />
+    <Compile Include="Interfaces\IProductService.cs" />
     <Compile Include="Interfaces\ISalesService.cs" />
     <Compile Include="Services\ParserCSV.cs" />
+    <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\SalesService.cs" />
     <Compile Include="DTO\CustomerDTO.cs" />
     <Compile Include="DTO\ManagerDTO.cs" />

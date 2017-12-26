@@ -18,6 +18,7 @@ namespace SalesWebApplication
                 "~/Scripts/knockout-*",
                 "~/Scripts/knockout.mapping-latest.js",
                 "~/Scripts/knockout.validation.js",
+                "~/Scripts/ViewModels/AddSalesViewModel.js",
                 "~/Scripts/ViewModels/SalesViewModel.js"
                 ));
 

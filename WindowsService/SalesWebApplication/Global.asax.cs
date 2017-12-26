@@ -30,6 +30,7 @@ namespace SalesWebApplication
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<SalesDTO, SalesViewModel> ();
+                cfg.CreateMap<ProductSalesDTO, ProductSalesViewModel>();
             });
         }
     }

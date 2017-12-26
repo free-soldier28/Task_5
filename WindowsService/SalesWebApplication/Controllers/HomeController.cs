@@ -28,6 +28,18 @@ namespace SalesWebApplication.Controllers
             return Json(allSales, JsonRequestBehavior.AllowGet);
         }
 
+
+        public JsonResult GetProductSales()
+        {
+            var allProductSalese = Mapper.Map<IEnumerable<ProductSalesViewModel>>(_salesService.GetProductSales());
+            return Json(allProductSalese, JsonRequestBehavior.AllowGet);
+        }
+
+        public void DeleteByIdSales(int id)
+        {
+            _salesService.DeleteById(id);
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

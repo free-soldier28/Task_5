@@ -34,17 +34,20 @@ namespace WindowsService.DAL.Repositories
         public void Create(Manager item)
         {
             db.Managers.Add(item);
+            db.SaveChanges();
         }
 
         public void Update(Manager item)
         {
             db.Entry(item).State = EntityState.Modified;
+            db.SaveChanges();
         }
 
         public void Delete(int id)
         {
             Manager item = db.Managers.Find(id);
             db.Managers.Remove(item);
+            db.SaveChanges();
         }
     }
 }

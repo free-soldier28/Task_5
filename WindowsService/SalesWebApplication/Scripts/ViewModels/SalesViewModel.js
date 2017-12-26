@@ -5,11 +5,11 @@
     this.Sales = ko.observableArray([]);
     this.Product = ko.observableArray([]);
 
-    //this.AddSalesModel = new AddSalesViewModel();
+    this.AddSalesModel = new AddSalesViewModel();
 
-    //this.showAddSalesForm = function () {
-    //    self.AddSalesModel.IsActive(!self.AddSalesModel.IsActive());
-    //}
+    this.showAddSalesForm = function () {
+        self.AddSalesModel.IsActive(!self.AddSalesModel.IsActive());
+    }
 
     var loadSales = function ()
     {

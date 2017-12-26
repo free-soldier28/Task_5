@@ -259,7 +259,6 @@
     <Content Include="Scripts\perpetuum.knockout.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\ViewModels\AddSalesViewModel.js" />
     <Content Include="Scripts\ViewModels\SalesViewModel.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -312,6 +311,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{6a2fe50d-e0e1-428e-a69c-6901a769ef2d}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WindowsService.BLL\WindowsService.BLL.csproj">
       <Project>{563991d9-707a-41d5-9481-82a785952f95}</Project>
       <Name>WindowsService.BLL</Name>

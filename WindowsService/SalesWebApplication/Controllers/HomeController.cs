@@ -21,6 +21,7 @@ namespace SalesWebApplication.Controllers
            return View();
         }
 
+
         [JsonNetFilter]
         public JsonResult GetSales()
         {
@@ -35,10 +36,19 @@ namespace SalesWebApplication.Controllers
             return Json(allProductSalese, JsonRequestBehavior.AllowGet);
         }
 
+
+        public void AddSales(SalesViewModel salesViewModel)
+        {
+            SalesDTO salesDto = Mapper.Map<SalesDTO>(salesViewModel);
+            _salesService.AddSales(salesDto);
+        }
+
+
         public void DeleteByIdSales(int id)
         {
             _salesService.DeleteById(id);
         }
+
 
         public ActionResult About()
         {
@@ -46,6 +56,7 @@ namespace SalesWebApplication.Controllers
 
             return View();
         }
+
 
         public ActionResult Contact()
         {

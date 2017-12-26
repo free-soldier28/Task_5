@@ -4,6 +4,7 @@ using System.Linq;
 using WindowsService.BLL.DTO;
 using WindowsService.BLL.Interfaces;
 using WindowsService.DAL.Interfaces;
+using AutoMapper;
 using Entities;
 
 namespace WindowsService.BLL
@@ -27,7 +28,7 @@ namespace WindowsService.BLL
             {
                 SalesDTO salesDTO = new SalesDTO();
                 salesDTO.Id = sales.Id;
-                salesDTO.Date = sales.Date;
+                salesDTO.DateTime = sales.DateTime;
                 salesDTO.Amount = sales.Amount;
                 salesDTO.ManagerName = sales.Manager.SecondName;
                 salesDTO.CustomerName = sales.Customer.FullName;
@@ -62,23 +63,23 @@ namespace WindowsService.BLL
         }
 
 
-        public void AddSales(string managerName, string[] substrings)
+        public void AddSales(SalesDTO salesDTO)
         {
-            Manager manager = Database.Managers.Find(x => x.SecondName == managerName).FirstOrDefault();
-            Customer customer = Database.Customers.Find(x => x.FullName == substrings[1]).FirstOrDefault();
-            Product product = Database.Products.Find(x => x.Name == substrings[2]).FirstOrDefault();
+            Manager manager = Database.Managers.Find(x => x.SecondName == salesDTO.ManagerName).FirstOrDefault();
+            Customer customer = Database.Customers.Find(x => x.FullName == salesDTO.CustomerName).FirstOrDefault();
+            Product product = Database.Products.Find(x => x.Name == salesDTO.ProductName).FirstOrDefault();
 
             Sales sales = new Sales
             {
-                Date = Convert.ToDateTime(substrings[0]),
-                Amount = Convert.ToDouble(substrings[3]),
+                DateTime = salesDTO.DateTime,
+                Amount = salesDTO.Amount
             };
 
             if (manager == null)
             {
                 manager = new Manager()
                 {
-                    SecondName = managerName
+                    SecondName = salesDTO.ManagerName
                 };
                 sales.Manager = manager;
             }
@@ -92,7 +93,7 @@ namespace WindowsService.BLL
             {
                 customer = new Customer()
                 {
-                    FullName = substrings[1]
+                    FullName = salesDTO.CustomerName
                 };
                 sales.Customer = customer;
             }
@@ -106,7 +107,7 @@ namespace WindowsService.BLL
             {
                 product = new Product()
                 {
-                    Name = substrings[2]
+                    Name = salesDTO.ProductName
                 };
                 sales.Product = product;
             }
@@ -115,8 +116,7 @@ namespace WindowsService.BLL
                 sales.ProductID = product.Id;
             }
 
-            Database.Saleses.Create(sales);
-            Database.Save();
+            Database.Saleses.Create(sales);          
         }
     }
 }

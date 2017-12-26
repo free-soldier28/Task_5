@@ -10,8 +10,8 @@ namespace Entities
         [Required]
         public double Amount { get; set; }
 
-        [Required]
-        public DateTime Date { get; set; }
+
+        public DateTime DateTime { get; set; }
 
 
         public int ManagerID { get; set; }

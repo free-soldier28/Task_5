@@ -5,6 +5,7 @@ using WindowsService.BLL.Interfaces;
 using WindowsService.DAL.Interfaces;
 using WindowsService.DAL.Repositories;
 using System.Configuration;
+using WindowsService.BLL.DTO;
 
 namespace WindowsService.BLL
 {
@@ -57,7 +58,15 @@ namespace WindowsService.BLL
                             if (line != "")
                             {
                                 substrings = Regex.Split(line, ",");
-                                salesService.AddSales(managerName, substrings);
+
+                                SalesDTO salesDTO = new SalesDTO();
+                                salesDTO.ManagerName = managerName;
+                                salesDTO.DateTime = Convert.ToDateTime(substrings[0]);
+                                salesDTO.CustomerName = substrings[1];
+                                salesDTO.ProductName = substrings[2];
+                                salesDTO.Amount = Convert.ToInt32(substrings[3]);
+
+                                salesService.AddSales(salesDTO);
                             }
                         }
                     }

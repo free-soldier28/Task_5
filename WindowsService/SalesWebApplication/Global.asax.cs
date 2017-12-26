@@ -9,6 +9,7 @@ using Ninject.Modules;
 using Ninject.Web.Mvc;
 using SalesWebApplication.Models;
 using SalesWebApplication.Util;
+using Entities;
 
 namespace SalesWebApplication
 {
@@ -30,6 +31,7 @@ namespace SalesWebApplication
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<SalesDTO, SalesViewModel> ();
+                cfg.CreateMap<SalesDTO,Sales>();
                 cfg.CreateMap<ProductSalesDTO, ProductSalesViewModel>();
             });
         }

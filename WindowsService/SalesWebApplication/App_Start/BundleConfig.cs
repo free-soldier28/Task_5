@@ -9,6 +9,7 @@ namespace SalesWebApplication
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                        "~/Scripts/moment.min.js",
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -17,8 +18,7 @@ namespace SalesWebApplication
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
                 "~/Scripts/knockout-*",
                 "~/Scripts/knockout.mapping-latest.js",
-                "~/Scripts/knockout.validation.js",
-                "~/Scripts/ViewModels/AddSalesViewModel.js",
+                "~/Scripts/knockout.validation.min.js",
                 "~/Scripts/ViewModels/SalesViewModel.js"
                 ));
 

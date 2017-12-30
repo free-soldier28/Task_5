@@ -37,10 +37,18 @@ namespace SalesWebApplication.Controllers
         }
 
 
-        public void AddSales(SalesViewModel salesViewModel)
+        public int AddSales(SalesViewModel salesViewModel)
         {
-            SalesDTO salesDto = Mapper.Map<SalesDTO>(salesViewModel);
-            _salesService.AddSales(salesDto);
+            if (salesViewModel != null)
+            {
+                SalesDTO salesDto = Mapper.Map<SalesDTO>(salesViewModel);
+                int id = _salesService.AddSales(salesDto);
+                return id;
+            }
+            else
+            {
+                return 0;
+            } 
         }
 
 

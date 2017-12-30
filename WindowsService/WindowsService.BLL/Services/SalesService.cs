@@ -63,7 +63,7 @@ namespace WindowsService.BLL
         }
 
 
-        public void AddSales(SalesDTO salesDTO)
+        public int AddSales(SalesDTO salesDTO)
         {
             Manager manager = Database.Managers.Find(x => x.SecondName == salesDTO.ManagerName).FirstOrDefault();
             Customer customer = Database.Customers.Find(x => x.FullName == salesDTO.CustomerName).FirstOrDefault();
@@ -116,7 +116,10 @@ namespace WindowsService.BLL
                 sales.ProductID = product.Id;
             }
 
-            Database.Saleses.Create(sales);          
+            Database.Saleses.Create(sales);
+
+            int id = Database.Saleses.GetAll().OrderByDescending(x=>x.Id).Select(z=>z.Id).FirstOrDefault();
+            return id;
         }
     }
 }

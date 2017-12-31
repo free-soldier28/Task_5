@@ -7,6 +7,9 @@ namespace WindowsService.BLL.Interfaces
     {
         int AddSales(SalesDTO salesDTO);
         IEnumerable<SalesDTO> GetSales();
+        IEnumerable<string> GetAllManagers();
+        IEnumerable<string> GetAllCustomers();
+        IEnumerable<string> GetAllProducts();
         IEnumerable<ProductSalesDTO> GetProductSales();
         void DeleteById(int id);
     }

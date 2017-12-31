@@ -1,9 +1,5 @@
-﻿var SalesViewModel = function () {
+﻿var SalesViewModel = function (){
     var self = this;
-
-    this.Sales = ko.observableArray([]);
-
-    //this.Product = ko.observableArray([]);
 
     this.Id = ko.observable();
     this.DateTime = ko.observable().extend({ required: true });
@@ -12,9 +8,16 @@
     this.ProductName = ko.observable().extend({ required: true, minLength: 2, maxLength: 50 });
     this.Amount = ko.observable().extend({ required: true });
 
+    this.ManagersList = ko.observableArray([]);
+    this.CustomersList = ko.observableArray([]);
+    this.ProductsList = ko.observableArray([]);
+
+    this.Sales = ko.observableArray([]);
+
     this.errors = ko.validation.group(self);
 
-    var loadSales = function () {
+    var loadSales = function ()
+    {
         $.ajax({
             url: '/Home/GetSales',
             type: "GET",
@@ -81,12 +84,11 @@
     }
 
     this.loadSalesForm = function () {
-        $('#NameForm').text('Добавление записи');
+
     }
 
     this.loadSalesEditForm = function (context)
     {
-        $('#NameForm').text('Редактирование записи');
         var id = context.Id;
         var objSales = ko.utils.arrayFirst(self.Sales(), function (item){
             return item.Id === id;
@@ -95,13 +97,38 @@
 
         self.Id(id);
         self.DateTime(date);
-        self.ManagerName(objSales.ManagerName);
-        self.CustomerName(objSales.CustomerName);
-        self.ProductName(objSales.ProductName);
         self.Amount(objSales.Amount);
+
+        $.ajax({
+            url: '/Home/GetAllManagers',
+            type: "GET",
+            success: function (managersList)
+            {
+                self.ManagersList(managersList);
+            }
+        });
+
+        $.ajax({
+            url: '/Home/GetAllCustomers',
+            type: "GET",
+            success: function (customersList)
+            {
+                self.CustomersList(customersList);
+            }
+        });
+
+        $.ajax({
+            url: '/Home/GetAllProducts',
+            type: "GET",
+            success: function (productsList)
+            {
+                self.ProductsList(productsList);
+            }
+        });
     }
 
-    this.editSales = function () {
+    this.editSales = function ()
+    {
         $.ajax({
             type: 'POST',
             url: '/Home/EditSales',
@@ -129,13 +156,6 @@
 
     this.clearForm = function ()
     {
-        //$('#Id').val('');
-        //$('#DateTime').val('');
-        //$('#ManagerName').val('');
-        //$('#CustomerName').val('');
-        //$('#ProductName').val('');
-        //$('#Amount').val('');
-
         self.Id('');
         self.DateTime('');
         self.ManagerName('');

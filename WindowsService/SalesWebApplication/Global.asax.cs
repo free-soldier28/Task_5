@@ -32,6 +32,9 @@ namespace SalesWebApplication
             {
                 cfg.CreateMap<SalesDTO, SalesViewModel> ();
                 cfg.CreateMap<SalesDTO,Sales>();
+                cfg.CreateMap<ManagerDTO, Manager>();
+                cfg.CreateMap<CustomerDTO, Customer>();
+                cfg.CreateMap<ProductDTO, ProductDTO>();
                 cfg.CreateMap<ProductSalesDTO, ProductSalesViewModel>();
             });
         }

@@ -6,6 +6,7 @@ using WindowsService.BLL.Interfaces;
 using WindowsService.DAL.Interfaces;
 using AutoMapper;
 using Entities;
+using Ninject.Infrastructure.Language;
 
 namespace WindowsService.BLL
 {
@@ -38,6 +39,27 @@ namespace WindowsService.BLL
             }
             
             return allSalesDTO;
+        }
+
+
+        public IEnumerable<string> GetAllManagers()
+        {
+            IEnumerable<string> managers = Database.Managers.GetAll().Select(x => x.SecondName);
+            return managers;
+        }
+
+
+        public IEnumerable<string> GetAllCustomers()
+        {
+            IEnumerable<string> customers = Database.Customers.GetAll().Select(x => x.FullName);
+            return customers;
+        }
+
+
+        public IEnumerable<string> GetAllProducts()
+        {
+            IEnumerable<string> products = Database.Products.GetAll().Select(x => x.Name);
+            return products;
         }
 
 

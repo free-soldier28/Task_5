@@ -36,6 +36,24 @@ namespace SalesWebApplication.Controllers
             return Json(allProductSalese, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetAllManagers()
+        {
+            var allMagers = _salesService.GetAllManagers();
+            return Json(allMagers, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAllCustomers()
+        {
+            var allCustomers = _salesService.GetAllCustomers();
+            return Json(allCustomers, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAllProducts()
+        {
+            var allProducts = _salesService.GetAllProducts();
+            return Json(allProducts, JsonRequestBehavior.AllowGet);
+        }
+
 
         public int AddSales(SalesViewModel salesViewModel)
         {

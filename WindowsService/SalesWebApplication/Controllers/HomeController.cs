@@ -69,6 +69,15 @@ namespace SalesWebApplication.Controllers
             } 
         }
 
+        public void EditSales(SalesViewModel salesViewModel)
+        {
+            if (salesViewModel != null)
+            {
+                SalesDTO salesDto = Mapper.Map<SalesDTO>(salesViewModel);
+               _salesService.EditSales(salesDto);
+            }
+        }
+
 
         public void DeleteByIdSales(int id)
         {

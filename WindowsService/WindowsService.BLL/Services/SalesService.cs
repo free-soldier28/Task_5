@@ -79,12 +79,6 @@ namespace WindowsService.BLL
         }
 
 
-        public void DeleteById(int id)
-        {
-            Database.Saleses.Delete(id);
-        }
-
-
         public int AddSales(SalesDTO salesDTO)
         {
             Manager manager = Database.Managers.Find(x => x.SecondName == salesDTO.ManagerName).FirstOrDefault();
@@ -142,6 +136,27 @@ namespace WindowsService.BLL
 
             int id = Database.Saleses.GetAll().OrderByDescending(x=>x.Id).Select(z=>z.Id).FirstOrDefault();
             return id;
+        }
+
+
+        public void EditSales(SalesDTO salesDTO)
+        {
+            Manager manager = Database.Managers.Find(x => x.SecondName == salesDTO.ManagerName).FirstOrDefault();
+            Customer customer = Database.Customers.Find(x => x.FullName == salesDTO.CustomerName).FirstOrDefault();
+            Product product = Database.Products.Find(x => x.Name == salesDTO.ProductName).FirstOrDefault();
+
+            Sales sales = Mapper.Map<Sales>(salesDTO);
+            sales.ManagerID = manager.Id;
+            sales.CustomerID = customer.Id;
+            sales.ProductID = product.Id;
+
+            Database.Saleses.Update(sales);
+        }
+
+
+        public void DeleteById(int id)
+        {
+            Database.Saleses.Delete(id);
         }
     }
 }

@@ -11,7 +11,7 @@
     <div class="jumbotron">
         
         <div id="AddFormModal" class="modal fade">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -32,10 +32,10 @@
                                 <input type="text" data-bind="value: ProductName" id="ProductName" class="form-control" placeholder="Товар" />
                             </div>
                             <div class="form-group">
-                                <input type="text" data-bind="value: Amount" class="form-control" placeholder="Сумма" />
+                                <input type="text" data-bind="value: Amount" id="Amount" class="form-control" placeholder="Сумма" />
                             </div>
                             <div class="classic-buttons">
-                                <button class="btn btn-primary" data-bind="click: save">Добавить</button>
+                                <button class="btn btn-primary" data-bind="click: addSales">Добавить</button>
                                 <button class="btn btn-close" data-dismiss="modal" data-bind="click: clearForm">Отмена</button>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
         </div>
         
         <div id="EditFormModal" class="modal fade">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -57,27 +57,27 @@
                                 <input type="hidden" data-bind="value: Id" id="Id" class="form-control" />
                             </div>
                             <div class="form-group">
-                                <span сlass="label label-info">Дата покупки: </span>
-                                <input type="datetime-local" data-bind="value: DateTime" class="form-control" />
+                                <label>Дата покупки: </label>
+                                <input type="datetime-local" data-bind="value: DateTime" class="form-control">
                             </div>
                             <div class="form-group">
-                                <span сlass="label label-info">Менеджер: </span>
-                                <select data-bind="options: ManagersList" id="ManagersList" class="form-control"></select>
+                                <label>Менеджер: </label>
+                                <select data-bind="options: ManagersList, value: Manager" class="form-control"></select>
                             </div>
                             <div class="form-group">
                                 <label for="CustomersList">Покупатель: </label>
-                                <select data-bind="options: CustomersList" id="CustomersList" class="form-control"></select>
+                                <select data-bind="options: CustomersList, value: Customer" class="form-control"></select>
                             </div>
                             <div class="form-group">
                                 <label for="ProductsList">Продукт: </label>
-                                <select data-bind="options: ProductsList" id="ProductsList" class="form-control"></select>
+                                <select data-bind="options: ProductsList, value: Product" class="form-control"></select>
                             </div>
                             <div class="form-group">
                                 <label>Цена: </label>
                                 <input type="text" data-bind="value: Amount" class="form-control" placeholder="Сумма"/>
                             </div>
                             <div class="classic-buttons">
-                                <button class="btn btn-primary" data-bind="click: save">Сохранить</button>
+                                <button class="btn btn-primary" data-bind="click: editSales">Сохранить</button>
                                 <button class="btn btn-close" data-dismiss="modal" data-bind="click: clearForm">Отмена</button>
                             </div>
                         </div>
@@ -85,35 +85,42 @@
                 </div>
             </div>
         </div>
+        
 
-
-
-        <td><a href="#AddFormModal" class="btn btn-primary" data-bind="click: $root.loadSalesForm" data-toggle="modal">Добавить запись</a></td>
+        <td>
+            <a href="#AddFormModal" class="btn btn-primary" data-bind="click: clearForm" data-toggle="modal">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Добавить запись
+            </a>
+        </td>
         <table class="table table-hover">
             <thead>
             <tr>
-                <th></th>
-                <th></th>
-                <th>Дата</th>
-                <th>Менеджер</th>
-                <th>Клиент</th>
-                <th>Товар</th>
-                <th>Сумма</th>
-                <th></th>
-                <th></th>
+                <th><h3>Дата</h3></th>
+                <th><h3>Менеджер</h3></th>
+                <th><h3>Клиент</h3></th>
+                <th><h3>Товар</h3></th>
+                <th><h3>Сумма</h3></th>
+                <th><h3></h3></th>
+                <th><h3></h3></th>
             </tr>
             </thead>
             <tbody data-bind="foreach: Sales">
             <tr>
-                <th data-index="$index"></th>
-                <td data-bind="text: Id"></td>
                 <td data-bind="text: DateTime"></td>
                 <td data-bind="text: ManagerName"></td>
                 <td data-bind="text: CustomerName"></td>
                 <td data-bind="text: ProductName"></td>
                 <td data-bind="text: Amount"></td>
-                <td><a href="#EditFormModal" class="btn btn-primary" data-bind="click: $root.loadSalesEditForm" data-toggle="modal">Редактировать</a></td>
-                <td><button class="btn btn-primary" data-bind="click: $root.deleteSales">Удалить</button></td>
+                <td>
+                    <a href="#EditFormModal" class="btn btn-primary" data-bind="click: $root.loadSalesEditForm" data-toggle="modal">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактировать
+                    </a>
+                </td>
+                <td>
+                    <button class="btn btn-primary" data-bind="click: $root.deleteSales">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удалить
+                    </button>
+                </td>
             </tr>
             </tbody>
         </table>

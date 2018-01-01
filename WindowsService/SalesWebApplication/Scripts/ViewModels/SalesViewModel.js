@@ -1,4 +1,5 @@
-﻿var SalesViewModel = function (){
+﻿var SalesViewModel = function ()
+{
     var self = this;
 
     this.Id = ko.observable();
@@ -11,6 +12,9 @@
     this.ManagersList = ko.observableArray([]);
     this.CustomersList = ko.observableArray([]);
     this.ProductsList = ko.observableArray([]);
+    this.Manager = ko.observable();
+    this.Customer = ko.observable();
+    this.Product = ko.observable();
 
     this.Sales = ko.observableArray([]);
 
@@ -29,18 +33,19 @@
     loadSales();
 
 
-    this.save = function ()
-    {
-        var id = $('#Id').val();
+    //this.save = function ()
+    //{
+    //    var id = $('#Id').val();
 
-        if (id == 0) {
-            self.addSales();
-        }
-        else
-        {
-            self.editSales();
-        }
-    }
+    //    if (id == 0)
+    //    {
+    //        self.addSales();
+    //    }
+    //    else
+    //    {
+    //        self.editSales();
+    //    }
+    //}
 
     this.addSales = function ()
     {
@@ -48,11 +53,11 @@
         {
             var obj = function ()
             {
-                this.DateTime = self.DateTime;
-                this.ManagerName = self.ManagerName;
-                this.CustomerName = self.CustomerName;
-                this.ProductName = self.ProductName;
-                this.Amount = self.Amount;
+                this.DateTime = self.DateTime();
+                this.ManagerName = self.ManagerName();
+                this.CustomerName = self.CustomerName();
+                this.ProductName = self.ProductName();
+                this.Amount = self.Amount();
             };
 
             $.ajax({
@@ -71,7 +76,7 @@
                         ProductName: self.ProductName(),
                         Amount: self.Amount()
                     });
-                    self.clearForm();
+                    //self.clearForm();
                 },
                 contentType: "application/json",
                 dataType: 'json'
@@ -83,20 +88,19 @@
         }
     }
 
-    this.loadSalesForm = function () {
-
-    }
 
     this.loadSalesEditForm = function (context)
     {
+
         var id = context.Id;
         var objSales = ko.utils.arrayFirst(self.Sales(), function (item){
             return item.Id === id;
         });
-        var date = moment(objSales.DateTime);
+
+        var date = moment(objSales.DateTime,'DD-MM-YYYY hh:mm:ss');
 
         self.Id(id);
-        self.DateTime(date);
+        self.DateTime(date.format('YYYY-MM-DDTHH:mm:ss'));
         self.Amount(objSales.Amount);
 
         $.ajax({
@@ -105,6 +109,7 @@
             success: function (managersList)
             {
                 self.ManagersList(managersList);
+                self.Manager(objSales.ManagerName);
             }
         });
 
@@ -114,6 +119,7 @@
             success: function (customersList)
             {
                 self.CustomersList(customersList);
+                self.Customer(objSales.CustomerName);
             }
         });
 
@@ -123,18 +129,27 @@
             success: function (productsList)
             {
                 self.ProductsList(productsList);
+                self.Product(objSales.ProductName);
             }
         });
     }
 
     this.editSales = function ()
     {
+        var obj = function () {
+            this.Id = self.Id();
+            this.DateTime = self.DateTime();
+            this.ManagerName = self.ManagerName();
+            this.CustomerName = self.CustomerName();
+            this.ProductName = self.ProductName();
+            this.Amount = self.Amount();
+        };
+
         $.ajax({
             type: 'POST',
             url: '/Home/EditSales',
-            data: ko.toJSON(self),
-            success: function (data) {
-
+            data: ko.toJSON(new obj()),
+            success: function () {
             },
             contentType: "application/json",
             dataType: 'json'
@@ -156,14 +171,18 @@
 
     this.clearForm = function ()
     {
-        self.Id('');
-        self.DateTime('');
-        self.ManagerName('');
-        self.CustomerName('');
-        self.ProductName('');
-        self.Amount('');
+        self.Id(null);
+        self.DateTime(null);
+        self.ManagerName(null);
+        self.CustomerName(null);
+        self.ProductName(null);
+        self.Amount(null);
 
-        $('#myModal').modal('hide');
+        this.ManagersList(null);
+        this.CustomersList(null);
+        this.ProductsList(null);
 
+        //$('#myModal').modal('hide');
     }
+
 };

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using WindowsService.BLL.DTO;
 using WindowsService.BLL.Interfaces;
@@ -23,12 +24,36 @@ namespace SalesWebApplication.Controllers
 
 
         [JsonNetFilter]
+        public JsonResult FilterGetSales(FilterSalesViewModel filter)
+        {
+            IEnumerable<SalesViewModel> allSales = Mapper.Map<IEnumerable<SalesViewModel>>(_salesService.GetSales());
+
+            if (filter.BeginDateTime != null && filter.EndDateTime != null)
+            {
+                allSales = allSales.Where(x => x.DateTime >= filter.BeginDateTime && x.DateTime <= filter.EndDateTime);
+            }
+            if (filter.ManagerFiltr != null)
+            {
+                allSales = allSales.Where(x => x.ManagerName == filter.ManagerFiltr);
+            }
+            if (filter.CustomerFiltr != null)
+            {
+                allSales = allSales.Where(x => x.CustomerName == filter.CustomerFiltr);
+            }
+            if (filter.ProductFiltr != null)
+            {
+                allSales = allSales.Where(x => x.ProductName == filter.ProductFiltr);
+            }
+
+            return Json(allSales, JsonRequestBehavior.AllowGet);
+        }
+
+        [JsonNetFilter]
         public JsonResult GetSales()
         {
             var allSales = Mapper.Map<IEnumerable<SalesViewModel>>(_salesService.GetSales());
             return Json(allSales, JsonRequestBehavior.AllowGet);
         }
-
 
         public JsonResult GetProductSales()
         {

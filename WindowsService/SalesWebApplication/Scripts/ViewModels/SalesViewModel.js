@@ -2,6 +2,8 @@
 {
     var self = this;
 
+    this.Sales = ko.observableArray([]);
+
     this.Id = ko.observable();
     this.DateTime = ko.observable().extend({ required: true });
     this.ManagerName = ko.observable().extend({ required: true, minLength: 2, maxLength: 50 });
@@ -16,36 +18,27 @@
     this.Customer = ko.observable();
     this.Product = ko.observable();
 
-    this.Sales = ko.observableArray([]);
+    this.BeginDateTime = ko.observable();
+    this.EndDateTime = ko.observable();
+    this.ManagerFiltr = ko.observable();
+    this.CustomerFiltr= ko.observable();
+    this.ProductFiltr = ko.observable();
 
     this.errors = ko.validation.group(self);
 
-    var loadSales = function ()
+    this.loadSales = function ()
     {
         $.ajax({
             url: '/Home/GetSales',
             type: "GET",
             success: function (data) {
                 self.Sales(data);
+                self.clearForm();
             }
         });
+        
     }
-    loadSales();
-
-
-    //this.save = function ()
-    //{
-    //    var id = $('#Id').val();
-
-    //    if (id == 0)
-    //    {
-    //        self.addSales();
-    //    }
-    //    else
-    //    {
-    //        self.editSales();
-    //    }
-    //}
+    this.loadSales();
 
     this.addSales = function ()
     {
@@ -76,7 +69,7 @@
                         ProductName: self.ProductName(),
                         Amount: self.Amount()
                     });
-                    //self.clearForm();
+                    self.clearForm();
                 },
                 contentType: "application/json",
                 dataType: 'json'
@@ -91,7 +84,6 @@
 
     this.loadSalesEditForm = function (context)
     {
-
         var id = context.Id;
         var objSales = ko.utils.arrayFirst(self.Sales(), function (item){
             return item.Id === id;
@@ -139,9 +131,9 @@
         var obj = function () {
             this.Id = self.Id();
             this.DateTime = self.DateTime();
-            this.ManagerName = self.ManagerName();
-            this.CustomerName = self.CustomerName();
-            this.ProductName = self.ProductName();
+            this.ManagerName = self.Manager();
+            this.CustomerName = self.Customer();
+            this.ProductName = self.Product();
             this.Amount = self.Amount();
         };
 
@@ -150,13 +142,71 @@
             url: '/Home/EditSales',
             data: ko.toJSON(new obj()),
             success: function () {
+                
             },
             contentType: "application/json",
             dataType: 'json'
         });
+
+        self.clearForm();
     }
 
-    this.deleteSales = function (id) {
+    this.loadFiltrationtForm = function () {
+        $.ajax({
+            url: '/Home/GetAllManagers',
+            type: "GET",
+            success: function (managersList) {
+                self.ManagersList(managersList);
+            }
+        });
+
+        $.ajax({
+            url: '/Home/GetAllCustomers',
+            type: "GET",
+            success: function (customersList) {
+                self.CustomersList(customersList);
+            }
+        });
+
+        $.ajax({
+            url: '/Home/GetAllProducts',
+            type: "GET",
+            success: function (productsList) {
+                self.ProductsList(productsList);
+            }
+        });
+    }
+
+    this.filtrSales = function ()
+    {
+        var obj = function () {
+            this.BeginDateTime = self.BeginDateTime();
+            this.EndDateTime = self.EndDateTime();
+            this.ManagerFiltr = self.ManagerFiltr();
+            this.CustomerFiltr = self.CustomerFiltr();
+            this.ProductFiltr = self.ProductFiltr();
+        };
+
+        if (obj != null)
+        {
+            $.ajax({
+                url: '/Home/FilterGetSales',
+                type: "POST",
+                data: ko.toJSON(new obj()),
+                success: function (data) {
+                    self.Sales(data);
+                },
+                contentType: "application/json",
+                dataType: 'json'
+            }); 
+        }
+
+        $('#FiltrationFormModal').modal('hide');
+        //self.clearForm();
+    }
+
+    this.deleteSales = function (id) 
+    {
         $.ajax({
             type: 'POST',
             url: '/Home/DeleteByIdSales',
@@ -182,7 +232,12 @@
         this.CustomersList(null);
         this.ProductsList(null);
 
-        //$('#myModal').modal('hide');
+        this.BeginDateTime(null);
+        this.EndDateTime(null);
+
+        $('#EditFormModal').modal('hide');
+        $('#AddFormModal').modal('hide');
+        $('#FiltrationFormModal').modal('hide');
     }
 
 };

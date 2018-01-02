@@ -126,7 +126,7 @@
         });
     }
 
-    this.editSales = function ()
+    this.editSales = function (con)
     {
         var obj = function () {
             this.Id = self.Id();
@@ -136,13 +136,18 @@
             this.ProductName = self.Product();
             this.Amount = self.Amount();
         };
+        var editObj = new obj();
 
         $.ajax({
             type: 'POST',
             url: '/Home/EditSales',
-            data: ko.toJSON(new obj()),
-            success: function () {
-                
+            data: ko.toJSON(editObj),
+            success: function (bool)
+            {
+                var objSales = ko.utils.arrayFirst(self.Sales(), function (item) {
+                    return item.Id === editObj.Id;
+                });
+                self.Sales.replace(objSales, editObj);
             },
             contentType: "application/json",
             dataType: 'json'

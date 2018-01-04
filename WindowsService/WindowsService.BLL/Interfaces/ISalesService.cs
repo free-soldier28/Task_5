@@ -12,6 +12,6 @@ namespace WindowsService.BLL.Interfaces
         IEnumerable<string> GetAllManagers();
         IEnumerable<string> GetAllCustomers();
         IEnumerable<string> GetAllProducts();
-        IEnumerable<ProductSalesDTO> GetProductSales();
+        IEnumerable<ManagerSalesDTO> GetManagersSales();
     }
 }

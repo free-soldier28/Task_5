@@ -36,7 +36,6 @@
                 self.clearForm();
             }
         });
-        
     }
     this.loadSales();
 
@@ -140,7 +139,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '/Home/EditSales',
+            url: '/Home/GetMenedgersSales',
             data: ko.toJSON(editObj),
             success: function (bool)
             {

@@ -55,7 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTO\ProductSalesDTO.cs" />
+    <Compile Include="DTO\ManagerSalesDTO.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Interfaces\IParser.cs" />
     <Compile Include="Interfaces\IProductService.cs" />

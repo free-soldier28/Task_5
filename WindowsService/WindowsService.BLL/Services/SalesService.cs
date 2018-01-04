@@ -63,19 +63,15 @@ namespace WindowsService.BLL
         }
 
 
-        public IEnumerable<ProductSalesDTO> GetProductSales()
+        public IEnumerable<ManagerSalesDTO> GetManagersSales()
         {
-            IEnumerable<Sales> allSales = Database.Saleses.GetAll();
-            List<ProductSalesDTO> allProductSalesDTO = new List<ProductSalesDTO>();
-
-
-            foreach (var sales in allSales)
-            {
-                ProductSalesDTO productSalesDTO = new ProductSalesDTO();
-                productSalesDTO.ProductName = sales.Product.Name;
-                productSalesDTO.Amount = sales.Amount;
-            }
-            return allProductSalesDTO;
+           var managersSalesDTO = Database.Saleses.GetAll().GroupBy(x => x.Manager.SecondName)
+                                                           .Select(z=> new ManagerSalesDTO
+                                                            {
+                                                                ManagerName = z.First().Manager.SecondName,
+                                                                SumAmount = z.Sum(s=>s.Amount)
+                                                            });
+            return managersSalesDTO;
         }
 
 

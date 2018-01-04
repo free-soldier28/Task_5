@@ -224,6 +224,7 @@
     <Compile Include="Models\FilterSalesViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\JsonNetFilterAttribute.cs" />
+    <Compile Include="Models\ManagerSalesViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ProductSalesViewModel.cs" />
     <Compile Include="Models\SalesViewModel.cs" />
@@ -276,6 +277,7 @@
     <Content Include="Scripts\perpetuum.knockout.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\ViewModels\ChartViewModel.js" />
     <Content Include="Scripts\ViewModels\SalesViewModel.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

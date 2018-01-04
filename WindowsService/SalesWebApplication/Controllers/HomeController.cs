@@ -51,32 +51,32 @@ namespace SalesWebApplication.Controllers
         [JsonNetFilter]
         public JsonResult GetSales()
         {
-            var allSales = Mapper.Map<IEnumerable<SalesViewModel>>(_salesService.GetSales());
-            return Json(allSales, JsonRequestBehavior.AllowGet);
+            var result = Mapper.Map<IEnumerable<SalesViewModel>>(_salesService.GetSales());
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetProductSales()
+        public JsonResult GetManagersSales()
         {
-            var allProductSalese = Mapper.Map<IEnumerable<ProductSalesViewModel>>(_salesService.GetProductSales());
-            return Json(allProductSalese, JsonRequestBehavior.AllowGet);
+            List<ManagerSalesViewModel> result = Mapper.Map<IEnumerable<ManagerSalesViewModel>>(_salesService.GetManagersSales()).ToList();
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAllManagers()
         {
-            var allMagers = _salesService.GetAllManagers();
-            return Json(allMagers, JsonRequestBehavior.AllowGet);
+            var result = _salesService.GetAllManagers();
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAllCustomers()
         {
-            var allCustomers = _salesService.GetAllCustomers();
-            return Json(allCustomers, JsonRequestBehavior.AllowGet);
+            var result = _salesService.GetAllCustomers();
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetAllProducts()
         {
-            var allProducts = _salesService.GetAllProducts();
-            return Json(allProducts, JsonRequestBehavior.AllowGet);
+            var result = _salesService.GetAllProducts();
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
 

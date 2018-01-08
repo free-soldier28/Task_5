@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using WindowsService.BLL.DTO;
 using WindowsService.BLL.Interfaces;
 
 namespace SalesWebApplication.Controllers
@@ -19,6 +16,37 @@ namespace SalesWebApplication.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+
+        [HttpPost]
+        public JsonResult GetCustomers()
+        {
+            var customers = _customerService.GetCustomers();
+            return Json(customers);
+        }
+
+
+        [HttpPost]
+        public JsonResult AddCustomer(string CustomerName)
+        {
+            int id = _customerService.AddCustomer(CustomerName);
+            return Json(id);
+        }
+
+
+
+        [HttpPost]
+        public void EditCustomer(CustomerDTO customer)
+        {
+            _customerService.EditCustomer(customer);
+        }
+
+
+        [HttpPost]
+        public void DeleteCustomer(int Id)
+        {
+            _customerService.DeleteCustomer(Id);
         }
     }
 }

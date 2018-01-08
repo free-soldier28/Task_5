@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using WindowsService.BLL.DTO;
 using WindowsService.BLL.Interfaces;
+using WindowsService.BLL.Services;
 using WindowsService.DAL.Interfaces;
 using AutoMapper;
 using Entities;
-using Ninject.Infrastructure.Language;
 
 namespace WindowsService.BLL
 {

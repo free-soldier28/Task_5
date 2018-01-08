@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using WindowsService.BLL.DTO;
 using WindowsService.BLL.Interfaces;
 using WindowsService.DAL.Interfaces;
@@ -8,7 +7,7 @@ using Entities;
 
 namespace WindowsService.BLL.Services
 {
-    public class ProductService: IProductService
+    public class ProductService:  IProductService
     {
         IUnitOfWork Database { get; set; }
 

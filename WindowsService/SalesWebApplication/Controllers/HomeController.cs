@@ -17,6 +17,7 @@ namespace SalesWebApplication.Controllers
            _salesService = alesService;
         }
 
+
         public ActionResult Index()
         {
            return View();
@@ -48,6 +49,7 @@ namespace SalesWebApplication.Controllers
             return Json(allSales, JsonRequestBehavior.AllowGet);
         }
 
+
         [JsonNetFilter]
         public JsonResult GetSales()
         {
@@ -55,11 +57,13 @@ namespace SalesWebApplication.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+
         public JsonResult GetManagersSales()
         {
             List<ManagerSalesViewModel> result = Mapper.Map<IEnumerable<ManagerSalesViewModel>>(_salesService.GetManagersSales()).ToList();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
 
         public JsonResult GetAllManagers()
         {
@@ -67,11 +71,13 @@ namespace SalesWebApplication.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+
         public JsonResult GetAllCustomers()
         {
             var result = _salesService.GetAllCustomers();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
 
         public JsonResult GetAllProducts()
         {
@@ -94,6 +100,7 @@ namespace SalesWebApplication.Controllers
             } 
         }
 
+
         public int EditSales(SalesViewModel salesViewModel)
         {
             if (salesViewModel != null)
@@ -114,20 +121,5 @@ namespace SalesWebApplication.Controllers
             _salesService.DeleteById(id);
         }
 
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }

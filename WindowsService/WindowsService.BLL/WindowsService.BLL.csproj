@@ -57,9 +57,13 @@
   <ItemGroup>
     <Compile Include="DTO\ManagerSalesDTO.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
+    <Compile Include="Interfaces\ICustomerService.cs" />
+    <Compile Include="Interfaces\IManagerService.cs" />
     <Compile Include="Interfaces\IParser.cs" />
     <Compile Include="Interfaces\IProductService.cs" />
     <Compile Include="Interfaces\ISalesService.cs" />
+    <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Services\ManagerService.cs" />
     <Compile Include="Services\ParserCSV.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\SalesService.cs" />

@@ -1,0 +1,93 @@
+﻿<div id="ManagerWrapper">
+    <br>
+    <a href="#AddFormModal" class="btn btn-primary" data-toggle="modal">
+        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Добавить менеджера
+    </a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th><h4>Менеджер</h4></th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <colgroup>
+            <col class="col-md-7">
+            <col class="col-md-2">
+            <col class="col-md-2">
+        </colgroup>
+        <tbody data-bind="foreach: Managers">
+        <tr>
+            <td data-bind="text: SecondName" ></td>
+            <td>
+                <a href="#EditFormModal" class="btn btn-primary" data-bind="click: $root.loadManagerEditForm" data-toggle="modal">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Редактировать
+                </a>
+            </td>
+            <td>
+                <button class="btn btn-primary" data-bind="click: $root.deleteManager">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Удалить
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+    <div id="EditFormModal" class="modal fade">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Редактирование менеджера</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-validate">
+                        <div class="form-group">
+                            <input type="hidden" data-bind="value: $root.Id" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" data-bind="value: $root.ManagerName" class="form-control" placeholder="Введите менеджера"/>
+                        </div>
+                        <div class="classic-buttons">
+                            <button class="btn btn-primary" data-bind="click: editManager">Сохранить</button>
+                            <button class="btn btn-close" data-dismiss="modal" data-bind="click: clearForm">Отмена</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="AddFormModal" class="modal fade">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Добавление менеджера</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-validate">
+                        <div class="form-group">
+                            <input type="text" data-bind="value: $root.ManagerName" class="form-control" placeholder="Введите менеджера" />
+                        </div>
+                        <div class="classic-buttons">
+                            <button class="btn btn-primary" data-bind="click: addManager">Добавить</button>
+                            <button class="btn btn-close" data-dismiss="modal" data-bind="click: clearForm">Отмена</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@Scripts.Render("~/bundles/knockout")
+
+<script>
+    $(function() {
+        var myViewModel = new ManagerViewModel();
+        ko.applyBindings(myViewModel, $("#ManagerWrapper")[0]);
+    });
+</script>

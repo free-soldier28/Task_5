@@ -27,6 +27,7 @@ namespace SalesWebApplication.Controllers
         }
 
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public JsonResult AddCustomer(string CustomerName)
         {
@@ -35,7 +36,7 @@ namespace SalesWebApplication.Controllers
         }
 
 
-
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public void EditCustomer(CustomerDTO customer)
         {
@@ -43,6 +44,7 @@ namespace SalesWebApplication.Controllers
         }
 
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public void DeleteCustomer(int Id)
         {

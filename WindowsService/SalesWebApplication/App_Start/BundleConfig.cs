@@ -18,11 +18,7 @@ namespace SalesWebApplication
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
                 "~/Scripts/knockout-*",
                 "~/Scripts/knockout.mapping-latest.js",
-                "~/Scripts/knockout.validation.min.js",
-                "~/Scripts/ViewModels/SalesViewModel.js",
-                "~/Scripts/ViewModels/ManagerViewModel.js",
-                "~/Scripts/ViewModels/CustomerViewModel.js",
-                "~/Scripts/ViewModels/ProductViewModel.js"
+                "~/Scripts/knockout.validation.min.js"
                 ));
 
             // Используйте версию Modernizr для разработчиков, чтобы учиться работать. Когда вы будете готовы перейти к работе,

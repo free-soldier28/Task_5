@@ -3,8 +3,10 @@
     var self = this;
 
     this.Id = ko.observable();
-    this.ManagerName = ko.observable();
+    this.ManagerName = ko.observable().extend({ required: true, minLength: 2, maxLength: 30 });
     this.Managers = ko.observableArray([]);
+
+    this.errors = ko.validation.group(self);
 
     var getManagers = function ()
     {
@@ -21,22 +23,24 @@
 
     this.addManager = function ()
     {
-        $.ajax({
-            type: "Post",
-            url: '/Manager/AddManager',
-            data: ko.toJSON(self),
-            success: function (id)
-            {
-                self.Managers.unshift(
-                {
-                    Id: id,
-                    SecondName: self.ManagerName()
-                });
-                self.clearForm();
-            },
-            contentType: "application/json",
-            dataType: 'json'
-        });
+        if (self.errors().length === 0)
+        {
+            $.ajax({
+                type: "Post",
+                url: '/Manager/AddManager',
+                data: ko.toJSON(self),
+                success: function(id) {
+                    self.Managers.unshift(
+                        {
+                            Id: id,
+                            SecondName: self.ManagerName()
+                        });
+                    self.clearForm();
+                },
+                contentType: "application/json",
+                dataType: 'json'
+            });
+        }
     }
 
     this.loadManagerEditForm = function (context)
@@ -53,29 +57,32 @@
 
     this.editManager = function (content)
     {
-        var Obj = function () {
-            this.Id = self.Id();
-            this.SecondName = self.ManagerName();
+        if (self.errors().length === 0)
+        {
+            var Obj = function() {
+                this.Id = self.Id();
+                this.SecondName = self.ManagerName();
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/Manager/EditManager',
+                data: ko.toJSON(new Obj),
+                success: function() {
+
+                },
+                contentType: "application/json",
+                dataType: 'json'
+            });
+
+            var objManager = ko.utils.arrayFirst(self.Managers(),
+                function(item) {
+                    return item.Id === self.Id();
+                });
+            self.Managers.replace(objManager, new Obj);
+
+            self.clearForm();
         }
-
-        $.ajax({
-            type: 'POST',
-            url: '/Manager/EditManager',
-            data: ko.toJSON(new Obj),
-            success: function ()
-            {
-
-            },
-            contentType: "application/json",
-            dataType: 'json'
-        });
-
-        var objManager = ko.utils.arrayFirst(self.Managers(), function (item) {
-            return item.Id === self.Id();
-        });
-        self.Managers.replace(objManager, new Obj);
-
-        self.clearForm();
     }
 
     this.deleteManager = function (content)

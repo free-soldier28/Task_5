@@ -24,6 +24,7 @@ namespace SalesWebApplication.Controllers
         }
 
 
+        [Authorize(Roles = "admin")]
         [JsonNetFilter]
         public JsonResult FilterGetSales(FilterSalesViewModel filter)
         {
@@ -58,6 +59,7 @@ namespace SalesWebApplication.Controllers
         }
 
 
+        [Authorize(Roles = "admin")]
         public JsonResult GetManagersSales()
         {
             List<ManagerSalesViewModel> result = Mapper.Map<IEnumerable<ManagerSalesViewModel>>(_salesService.GetManagersSales()).ToList();
@@ -65,6 +67,7 @@ namespace SalesWebApplication.Controllers
         }
 
 
+        [Authorize(Roles = "admin")]
         public JsonResult GetAllManagers()
         {
             var result = _salesService.GetAllManagers();
@@ -72,6 +75,7 @@ namespace SalesWebApplication.Controllers
         }
 
 
+        [Authorize(Roles = "admin")]
         public JsonResult GetAllCustomers()
         {
             var result = _salesService.GetAllCustomers();
@@ -79,6 +83,7 @@ namespace SalesWebApplication.Controllers
         }
 
 
+        [Authorize(Roles = "admin")]
         public JsonResult GetAllProducts()
         {
             var result = _salesService.GetAllProducts();
@@ -86,6 +91,7 @@ namespace SalesWebApplication.Controllers
         }
 
 
+        [Authorize(Roles = "admin")]
         public int AddSales(SalesViewModel salesViewModel)
         {
             if (salesViewModel != null)
@@ -101,6 +107,7 @@ namespace SalesWebApplication.Controllers
         }
 
 
+        [Authorize(Roles = "admin")]
         public int EditSales(SalesViewModel salesViewModel)
         {
             if (salesViewModel != null)
@@ -116,6 +123,7 @@ namespace SalesWebApplication.Controllers
         }
 
 
+        [Authorize(Roles = "admin")]
         public void DeleteByIdSales(int id)
         {
             _salesService.DeleteById(id);

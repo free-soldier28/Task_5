@@ -28,6 +28,7 @@ namespace SalesWebApplication.Controllers
         }
 
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public JsonResult AddManager(string ManagerName)
         {
@@ -36,7 +37,7 @@ namespace SalesWebApplication.Controllers
         }
 
 
-
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public void EditManager(ManagerDTO manager)
         {
@@ -44,6 +45,7 @@ namespace SalesWebApplication.Controllers
         }
 
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public void DeleteManager(int Id)
         {
